@@ -22,7 +22,7 @@ ext_modules = [
     Extension(
         'stl',
         stl_files,
-        include_dirs=['pybind11/include', 'brkga'],
+        include_dirs=['pybind11/include', 'utils'],
         language='c++',
         extra_compile_args=cpp_args,
     ),

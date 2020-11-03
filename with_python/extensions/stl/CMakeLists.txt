@@ -8,4 +8,5 @@ pybind11_add_module(
 target_include_directories(
         stl PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
+        "utils/"
 )
