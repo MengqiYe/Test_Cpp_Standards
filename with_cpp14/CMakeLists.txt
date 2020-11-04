@@ -24,11 +24,11 @@ foreach (TEST ${TESTCASES})
 
     if (${TESTNAME} MATCHES matplotlib)
         message(STATUS "${TESTNAME} matches")
-        target_link_libraries(${EXECUTABLE_NAME} python3.8)
+        link_libraries(python3.8)
     endif ()
 
     if (${TESTNAME} MATCHES thread)
-        target_link_libraries(${EXECUTABLE_NAME} pthread)
+        link_libraries(pthread)
     endif ()
 
 endforeach ()
