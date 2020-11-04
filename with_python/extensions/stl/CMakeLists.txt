@@ -10,3 +10,9 @@ target_include_directories(
         ${CMAKE_CURRENT_LIST_DIR}
         "utils/"
 )
+
+install(
+        TARGETS stl # combinatorial_auctions
+        #        DESTINATION ${CMAKE_SOURCE_DIR}/tests/
+        DESTINATION ${CMAKE_BINARY_DIR}
+)
