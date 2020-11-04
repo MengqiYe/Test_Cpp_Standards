@@ -13,15 +13,12 @@
 namespace py = pybind11;
 
 PYBIND11_MAKE_OPAQUE(std::vector<float, std::allocator<float>>);
-PYBIND11_MAKE_OPAQUE(
-  std::vector<std::vector<float, std::allocator<float>>,
-    std::allocator<std::vector<float, std::allocator<float>>>>
-);
+using Chromosome = std::vector<float, std::allocator<float>>;
 
 PYBIND11_MODULE(stl, m) {
 
   m.doc() = "stl python plugin";
-
+  py::bind_vector<Chromosome>(m, "Chromosome");
   m.def("normal", &normal, "vec", "nrolls", "mean", "stddev");
 
 }

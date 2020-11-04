@@ -6,6 +6,6 @@ Created by Mengqi Ye on 2020/11/3
 import stl
 print(dir(stl))
 
-a = [.0]
+a = stl.Chromosome([])
 stl.normal(a, 10, 0.5, 0.1)
 print(a)
