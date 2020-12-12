@@ -16,16 +16,49 @@ tests_require = ['pytest', 'pytest-cov', 'mock']
 PROJECT_ROOT = dirname(__file__)
 
 stl_files = glob.glob(f"{PROJECT_ROOT}/stl/*.cpp")
+ref_files = glob.glob(f"{PROJECT_ROOT}/ref/*.cpp")
+pic_files = glob.glob(f"{PROJECT_ROOT}/pickling/*.cpp")
+prb_files = glob.glob(f"{PROJECT_ROOT}/problem/*.cpp")
+exp_files = glob.glob(f"{PROJECT_ROOT}/example/*.cpp")
 
+print(prb_files)
 
 ext_modules = [
+    # Extension(
+    #     'stl',
+    #     stl_files,
+    #     include_dirs=['pybind11/include', 'utils'],
+    #     language='c++',
+    #     extra_compile_args=cpp_args,
+    # ),
+    # Extension(
+    #     'ref',
+    #     ref_files,
+    #     include_dirs=['pybind11/include', 'ref/inc', 'utils'],
+    #     language='c++',
+    #     extra_compile_args=cpp_args,
+    # ),
     Extension(
-        'stl',
-        stl_files,
-        include_dirs=['pybind11/include', 'utils'],
+        'pickling',
+        pic_files,
+        include_dirs=['pybind11/include', 'pickling/inc', 'utils'],
         language='c++',
         extra_compile_args=cpp_args,
     ),
+    # Extension(
+    #     'problem',
+    #     prb_files,
+    #     include_dirs=['pybind11/include', 'problem/inc', 'utils'],
+    #     language='c++',
+    #     extra_compile_args=cpp_args,
+    # ),
+    # Extension(
+    #     'example',
+    #     exp_files,
+    #     include_dirs=['pybind11/include', 'utils'],
+    #     language='c++',
+    #     extra_compile_args=cpp_args,
+    # ),
 ]
 
 setup(
