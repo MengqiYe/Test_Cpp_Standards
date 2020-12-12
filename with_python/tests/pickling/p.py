@@ -7,8 +7,8 @@ import pickling
 
 print(dir(pickling))
 
-initial_chromosome = pickling.Chromosome([0 for i in range(58)])
-initial_chromosome_vec = pickling.ChromosomeVector([initial_chromosome])
-initial_chromosome_param_vec = [(1. * _, 2. * _)for _ in range(10)]
+initial_AVec = pickling.AVec([0 for i in range(58)])
+initial_AVec_vec = pickling.AVecVec([initial_AVec])
+initial_tparam_vec = pickling.TParamVec([(1. * x, 2. * x) for x in range(10)])
 
-pickling.PrintChromosomeParamVector(initial_chromosome_param_vec)
+pickling.PrintTParamVec(initial_tparam_vec)

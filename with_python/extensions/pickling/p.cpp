@@ -7,72 +7,73 @@
 
 namespace py = pybind11;
 
-typedef std::pair<float, float> ChromosomeParam;
-typedef std::vector<ChromosomeParam> ChromosomeParamVector;
+typedef std::pair<float, float> TParam;
+typedef std::vector<TParam>     TParamVector;
 
-PYBIND11_MAKE_OPAQUE(ChromosomeParam);
+PYBIND11_MAKE_OPAQUE(TParam);
 //PYBIND11_MAKE_OPAQUE(std::vector<std::pair<float, float>>);
-PYBIND11_MAKE_OPAQUE(ChromosomeParamVector);
-using Chromosome = std::vector<float, std::allocator<float>>;
+PYBIND11_MAKE_OPAQUE(TParamVector);
+using AVec = std::vector<float, std::allocator<float>>;
 
 
-void PrintChromosomeParamVector(const ChromosomeParamVector &vec) {
-  for (int i = 0; i < vec.size(); ++i) {
-    std::cout << vec[i].first << ' ' << vec[i].second << std::endl;
-  }
+void PrintTParamVec(const TParamVector &vec) {
+    for (int i = 0; i < vec.size(); ++i) {
+        std::cout << vec[i].first << ' ' << vec[i].second << std::endl;
+    }
 }
 
 PYBIND11_MODULE(pickling, m) {
 
-  m.doc() = "pickling python plugin";
+    m.doc() = "pickling python plugin";
 
-  py::bind_vector<Chromosome>(m, "Chromosome")
-    .def(py::pickle(
-      [](const Chromosome &p) {
-        return py::make_tuple(p);
-      },
-      [](py::tuple t) {
-        return Chromosome();
-      }
-    ));
-  py::bind_vector<std::vector<Chromosome>>(m, "ChromosomeVector")
-    .def(py::pickle(
-      [](const std::vector<Chromosome> &p) {
-        return py::make_tuple(p);
-      },
-      [](py::tuple t) {
-        return Chromosome();
-      }
-    ));
+    py::bind_vector<AVec>(m, "AVec");
+//    .def(py::pickle(
+//      [](const AVec &p) {
+//        return py::make_tuple(p);
+//      },
+//      [](py::tuple t) {
+//        return AVec();
+//      }
+//    ));
 
-  py::class_<ChromosomeParam>(m, "ChromosomeParam")
-    .def(py::init<>())
-    .def(py::init<float, float>())
-    .def_readonly("first", &ChromosomeParam::first)
-    .def_readonly("second", &ChromosomeParam::second)
-    .def(py::pickle(
-      [](const ChromosomeParam &p) {
-        return py::make_tuple(p.first, p.second);
-      },
-      [](py::tuple t) {
-        if (t.size() != 2)
-          throw std::runtime_error("Invalid state!");
-        return ChromosomeParam(t[0].cast<float>(), t[1].cast<float>());
-      }
-    ));
+    py::bind_vector<std::vector<AVec>>(m, "AVecVec");
+//    .def(py::pickle(
+//      [](const std::vector<AVec> &p) {
+//        return py::make_tuple(p);
+//      },
+//      [](py::tuple t) {
+//        return AVec();
+//      }
+//    ));
 
-  py::bind_vector<std::vector<ChromosomeParam>>(m, "ChromosomeParamVector")
-    .def(py::pickle(
-      [](const std::vector<ChromosomeParam> &p) {
-        return py::make_tuple(p);
-      },
-      [](py::tuple t) {
-        if (t.size() != 2)
-          throw std::runtime_error("Invalid state!");
-        return std::vector<ChromosomeParam>();
-      }
-    ));
+    py::class_<TParam>(m, "Param")
+        .def(py::init<>())
+        .def(py::init<float, float>())
+        .def_readonly("first", &TParam::first)
+        .def_readonly("second", &TParam::second)
+        .def(py::pickle(
+            [](const TParam &p) {
+                return py::make_tuple(p.first, p.second);
+            },
+            [](py::tuple t) {
+                if (t.size() != 2)
+                    throw std::runtime_error("Invalid state!");
+                return TParam(t[0].cast<float>(), t[1].cast<float>());
+            }
+        ));
 
-  m.def("PrintChromosomeParamVector", &PrintChromosomeParamVector, py::arg("chromosomes_param"));
+    py::bind_vector<std::vector<TParam>>(m, "TParamVec")
+        .def(py::pickle(
+            [](const std::vector<TParam> &p) {
+                return py::make_tuple(p);
+            },
+            [](py::tuple t) {
+                if (t.size() != 2)
+                    throw std::runtime_error("Invalid state!");
+                return std::vector<TParam>();
+            }
+        ));
+
+    m.def("PrintTParamVec", &PrintTParamVec, py::arg("param"));
 }
 
